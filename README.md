@@ -3,6 +3,7 @@
 이 프로젝트는 주식 데이터를 Yahoo Finance API를 통해 가져와 MySQL 데이터베이스에 삽입하는 Java 프로그램과 Python 스크립트를 포함하고 있습니다.
 
 ## 버전
+
    - Python 3.10.12
    - openjdk 11.0.25 2024-10-15
    - mysql 8.0.17
