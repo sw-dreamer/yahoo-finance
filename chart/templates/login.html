@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}로그인{% endblock %}
+
+{% block content %}
+    <h1>로그인</h1>
+    <form method="POST" action="{{ url_for('login') }}">
+        <label for="username">사용자 이름</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">로그인</button>
+    </form>
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}페이지 제목{% endblock %}</title>
+    <style>
+        /* 전체적인 배경 설정 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 네비게이션 바 스타일 */
+        .navbar {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* 네비게이션 바 링크 스타일 */
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #2980b9;
+        }
+
+        /* 사용자 이름 스타일 */
+        .navbar .username {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* 콘텐츠 영역 스타일 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 하단 푸터 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #34495e;
+            color: white;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <div class="navbar">
+        <div>
+            <a href="{{ url_for('index') }}">홈</a>
+        </div>
+        <div>
+            {% if username %}
+                <span class="username">{{ username }}님</span>
+                <a href="{{ url_for('logout') }}">로그아웃</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">로그인</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 콘텐츠 영역 -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2025 페이지 서비스 | 모든 권리 보유</p>
+    </footer>
+</body>
+</html>

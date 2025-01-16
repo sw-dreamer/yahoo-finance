@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식 차트</title>
+    <style>
+        /* 전체적인 배경 설정 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 네비게이션 바 스타일 */
+        .navbar {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* 네비게이션 바 링크 스타일 */
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #2980b9;
+        }
+
+        /* 사용자 이름 스타일 */
+        .navbar .username {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* 콘텐츠 영역 스타일 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 버튼 영역 스타일 */
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            justify-items: center;
+            margin-top: 40px;
+        }
+
+        /* 링크 스타일 */
+        .stock-link {
+            text-decoration: none;
+        }
+
+        /* 버튼 스타일 */
+        .stock-button {
+            padding: 18px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease, transform 0.3s ease;
+            width: 100%;
+            max-width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            outline: none;
+        }
+
+        /* 버튼 호버 효과 */
+        .stock-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 버튼 클릭 시 효과 */
+        .stock-button:active {
+            background-color: #1f70b7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 하단 푸터 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #34495e;
+            color: white;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        footer a {
+            color: #ecf0f1;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <div class="navbar">
+        <div>
+            <a href="/">홈</a>
+        </div>
+        <div>
+            <span class="username">master님</span>
+            <a href="/logout">로그아웃</a>
+        </div>
+    </div>
+
+    <!-- 콘텐츠 영역 -->
+    <div class="container">
+        <header>
+            <h1 class="page-title">주식 차트 보기</h1>
+            <p class="welcome-message">환영합니다, master님!</p>
+        </header>
+
+        <div class="button-container">
+            <a href="/stock/AAPL" class="stock-link">
+                <button class="stock-button">AAPL</button>
+            </a>
+            <a href="/stock/AMAT" class="stock-link">
+                <button class="stock-button">AMAT</button>
+            </a>
+            <a href="/stock/AMD" class="stock-link">
+                <button class="stock-button">AMD</button>
+            </a>
+            <a href="/stock/AMZN" class="stock-link">
+                <button class="stock-button">AMZN</button>
+            </a>
+            <a href="/stock/BIDU" class="stock-link">
+                <button class="stock-button">BIDU</button>
+            </a>
+            <a href="/stock/CSCO" class="stock-link">
+                <button class="stock-button">CSCO</button>
+            </a>
+            <a href="/stock/EXPE" class="stock-link">
+                <button class="stock-button">EXPE</button>
+            </a>
+            <a href="/stock/GOOGL" class="stock-link">
+                <button class="stock-button">GOOGL</button>
+            </a>
+            <a href="/stock/INTC" class="stock-link">
+                <button class="stock-button">INTC</button>
+            </a>
+            <a href="/stock/INTU" class="stock-link">
+                <button class="stock-button">INTU</button>
+            </a>
+            <a href="/stock/MSFT" class="stock-link">
+                <button class="stock-button">MSFT</button>
+            </a>
+            <a href="/stock/MSI" class="stock-link">
+                <button class="stock-button">MSI</button>
+            </a>
+            <a href="/stock/NFLX" class="stock-link">
+                <button class="stock-button">NFLX</button>
+            </a>
+            <a href="/stock/NVDA" class="stock-link">
+                <button class="stock-button">NVDA</button>
+            </a>
+            <a href="/stock/PINS" class="stock-link">
+                <button class="stock-button">PINS</button>
+            </a>
+            <a href="/stock/PYPL" class="stock-link">
+                <button class="stock-button">PYPL</button>
+            </a>
+            <a href="/stock/QCOM" class="stock-link">
+                <button class="stock-button">QCOM</button>
+            </a>
+            <a href="/stock/ROKU" class="stock-link">
+                <button class="stock-button">ROKU</button>
+            </a>
+            <a href="/stock/SNAP" class="stock-link">
+                <button class="stock-button">SNAP</button>
+            </a>
+            <a href="/stock/TSLA" class="stock-link">
+                <button class="stock-button">TSLA</button>
+            </a>
+            <a href="/stock/ZM" class="stock-link">
+                <button class="stock-button">ZM</button>
+            </a>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2025 주식 차트 서비스 | 모든 권리 보유</p>
+        </footer>
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2025 페이지 서비스 | 모든 권리 보유</p>
+    </footer>
+</body>
+</html>

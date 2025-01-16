@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ symbol }} 주식 차트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .stock-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .stock-button:hover {
+            background-color: #45a049;
+        }
+
+        .date-picker-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        #chart-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .chart-container {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #chart-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .toggle-chart-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+        }
+
+        .toggle-chart-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .stock-info {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .stock-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 18%;
+            text-align: center;
+        }
+
+        /* 주식 정보 제목 스타일 */
+        .stock-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        /* "해당 날짜의 데이터가 없습니다." 스타일 */
+        .no-data-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 40px;
+        }
+
+        /* 애니메이션을 사용하여 차트를 접고 펼침 */
+        #chart-container.collapsed .chart-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ symbol }} 주식 차트</h1>
+
+    <div class="button-container">
+        <a href="{{ url_for('index') }}">
+            <button class="stock-button">메인 페이지로 돌아가기</button>
+        </a>
+    </div>
+
+    <div class="date-picker-container">
+        <select id="chart-type" onchange="updateChart()">
+            <option value="daily">일별 차트</option>
+            <option value="minute">분별 차트</option>
+        </select>
+
+        <input type="date" id="specific-date" onchange="loadSpecificDateValue()" />
+    </div>
+
+    <!-- 차트와 접기 버튼 -->
+    <div id="chart-container">
+        <div class="chart-container">
+            <img id="chart-img" src="{{ url_for('chart', symbol=symbol, date_type='daily') }}" alt="차트 이미지" />
+        </div>
+        <button class="toggle-chart-btn" id="toggle-chart-btn" onclick="toggleChart()">차트 접기</button>
+    </div>
+
+    <!-- 주식 정보 제목 -->
+    <div class="stock-title" id="stock-title">{{ symbol }} - {{ current_date }} 주식 정보</div>
+
+    <!-- 주식 정보 -->
+    <div id="stock-details"></div>
+
+    <!-- 데이터가 없을 때 메시지 -->
+    <div id="no-data-message" class="no-data-message" style="display:none;">해당 날짜의 데이터가 없습니다.</div>
+
+    <div class="footer">
+        <p>&copy; 2025 주식 차트 서비스 | 모든 권리 보유</p>
+    </div>
+
+    <script>
+        function updateChart() {
+		const symbol = '{{ symbol }}';
+		const dateType = document.getElementById('chart-type').value;
+		const date = document.getElementById('specific-date').value;
+		let url = `/chart/${symbol}?date_type=${dateType}`;
+		if (date) {
+        url += `&date=${date}`;
+		}
+
+    document.getElementById('chart-img').src = url;
+    loadSpecificDateValue();  // 날짜 입력에 따라 주식 데이터도 로드
+}
+
+function loadSpecificDateValue() {
+    const symbol = '{{ symbol }}';
+    const date = document.getElementById('specific-date').value;
+
+    console.log(`Selected date: ${date}`);  // 날짜 값 확인
+
+    if (date) {
+        fetch(`/stock_data/${symbol}?date=${date}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    const stockDetailsDiv = document.getElementById('stock-details');
+                    stockDetailsDiv.innerHTML = `
+                        <div class="stock-info">
+                            <div class="stock-card">
+                                <h4>시가</h4>
+                                <p>${data.open}</p>
+                            </div>
+                            <div class="stock-card">
+                                <h4>고가</h4>
+                                <p>${data.high}</p>
+                            </div>
+                            <div class="stock-card">
+                                <h4>저가</h4>
+                                <p>${data.low}</p>
+                            </div>
+                            <div class="stock-card">
+                                <h4>종가</h4>
+                                <p>${data.close}</p>
+                            </div>
+                            <div class="stock-card">
+                                <h4>거래량</h4>
+                                <p>${data.volume}</p>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('no-data-message').style.display = "none";  // 데이터가 있으면 숨기기
+                } else {
+                    document.getElementById('stock-details').innerHTML = "";
+                    document.getElementById('no-data-message').style.display = "block";  // 데이터가 없으면 메시지 표시
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('stock-details').innerHTML = "";
+                document.getElementById('no-data-message').style.display = "block";  // 오류 메시지 표시
+            });
+    }
+}
+
+
+
+
+
+
+
+
+        function toggleChart() {
+            const chartContainer = document.getElementById('chart-container');
+            const toggleButton = document.getElementById('toggle-chart-btn');
+            
+            chartContainer.classList.toggle('collapsed');
+
+            // 차트가 펼쳐지면 버튼 텍스트 변경
+            if (chartContainer.classList.contains('collapsed')) {
+                toggleButton.textContent = "차트 펼치기";
+            } else {
+                toggleButton.textContent = "차트 접기";
+            }
+        }
+    </script>
+</body>
+</html>
