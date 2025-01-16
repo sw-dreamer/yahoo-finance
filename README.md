@@ -1,4 +1,4 @@
-# 주식 데이터 가져오기 및 MySQL 삽입 프로젝트 (Java & Python)
+# 주식 데이터 가져오기 및 MySQL 삽입 프로젝트
 
 이 프로젝트는 주식 데이터를 Yahoo Finance API를 통해 가져와 MySQL 데이터베이스에 삽입하는 Java 프로그램과 Python 스크립트를 포함하고 있습니다.
 
