@@ -180,3 +180,14 @@ Flask 애플리케이션은 주식 데이터를 조회하고, 차트를 렌더�
 - **차트 접기/펼치기**: `toggleChart()` 함수는 차트 영역을 접고 펼치는 기능을 담당합니다. 버튼 클릭 시 차트가 숨겨지거나 펼쳐집니다.
 
 ![image](https://github.com/user-attachments/assets/3cf6c0e4-56a2-421e-99a2-18aaecf69f32)
+
+
+---
+
+## 저작권 고지
+
+이 프로젝트의 일부 코드 및 콘텐츠는 OpenAI의 ChatGPT 모델을 사용하여 생성되었습니다.
+
+ChatGPT는 OpenAI에서 제공하는 AI 모델로, 해당 모델을 사용하여 생성된 콘텐츠는 사용자가 소유할 수 있습니다.
+
+다만, OpenAI의 [사용 약관](https://openai.com/policies/terms-of-use)을 준수해야 합니다.
