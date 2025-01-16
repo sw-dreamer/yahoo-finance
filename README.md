@@ -174,3 +174,4 @@ Flask 애플리케이션은 주식 데이터를 조회하고, 차트를 렌더�
 - **특정 날짜의 데이터 로드**: `loadSpecificDateValue()` 함수는 사용자가 날짜를 선택할 때마다 해당 날짜의 주식 데이터를 API에서 가져옵니다. 가져온 데이터는 화면에 동적으로 표시됩니다.
 - **차트 접기/펼치기**: `toggleChart()` 함수는 차트 영역을 접고 펼치는 기능을 담당합니다. 버튼 클릭 시 차트가 숨겨지거나 펼쳐집니다.
 
+![image](https://github.com/user-attachments/assets/3cf6c0e4-56a2-421e-99a2-18aaecf69f32)
